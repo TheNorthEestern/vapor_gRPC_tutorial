@@ -27,3 +27,18 @@ final class Todo: Model, @unchecked Sendable {
         )
     }
 }
+
+extension Todo {
+  convenience init (_ todo: Todos_Todo) {
+    self.init(id: UUID(uuidString: todo.todoID), title: todo.title)
+  }
+}
+
+extension Todos_Todo {
+  init(_ todo: Todo) {
+    if let todoid = todo.id {
+      self.todoID = todoid.uuidString
+    }
+    self.title = todo.title
+  }
+}
